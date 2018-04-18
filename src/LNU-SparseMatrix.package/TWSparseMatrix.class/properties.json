@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "YaroslavKormushyn 4/18/2018 11:18",
+	"super" : "Object",
+	"category" : "LNU-SparseMatrix",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"rows",
+		"columns",
+		"rowsNumber",
+		"columnsNumber"
+	],
+	"name" : "TWSparseMatrix",
+	"type" : "normal"
+}

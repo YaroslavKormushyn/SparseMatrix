@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "LNU-SparseMatrix-Visual",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"graph"
+	],
+	"name" : "COOMatrixVisual",
+	"type" : "normal"
+}
