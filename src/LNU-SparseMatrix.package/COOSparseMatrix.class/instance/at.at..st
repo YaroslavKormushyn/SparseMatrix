@@ -2,7 +2,7 @@ accessing
 at: rowIndex at: columnIndex
 	| marker |
 	( self validAt: rowIndex at: columnIndex )
-		ifFalse: [ SubscriptOutOfBounds signal: 'Invalid index.'].
+		ifFalse: [ SubscriptOutOfBounds signal: 'Invalid index.' ].
 	self isEmpty 
 		ifTrue: [ ^ 0 ].
 	
