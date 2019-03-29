@@ -1,4 +1,4 @@
 instance creation
 open
 	view isNotNil
-	ifTrue: [ ^ view ]
+		ifTrue: [ ^ view ]

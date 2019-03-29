@@ -6,6 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "COOSparseMatrixVisualizer",
+	"name" : "LILSparseMatrixVisualizer",
 	"type" : "normal"
 }

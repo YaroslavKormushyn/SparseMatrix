@@ -1,4 +1,4 @@
-as yet unclassified
+private
 elementsAsCollection
 	| marker result |
 	self isEmpty

@@ -1,11 +1,16 @@
 {
 	"commentStamp" : "",
-	"super" : "MatrixVisualizer",
+	"super" : "Object",
 	"category" : "LNU-SparseMatrix-Visual",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
-	"name" : "COOSparseMatrixVisualizer",
+	"instvars" : [
+		"row",
+		"column",
+		"value",
+		"next"
+	],
+	"name" : "MatrixElement",
 	"type" : "normal"
 }

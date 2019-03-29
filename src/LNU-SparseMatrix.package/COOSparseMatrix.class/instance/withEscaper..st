@@ -1,3 +1,3 @@
-as yet unclassified
+private
 withEscaper: aBlock
    aBlock value: [ ^ nil ]

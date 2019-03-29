@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "YaroslavKormushyn 4/16/2018 11:09",
 	"super" : "Object",
-	"category" : "LNU-SparseMatrix",
+	"category" : "LNU-SparseMatrix-Data",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
