@@ -1,4 +1,4 @@
-private
+as yet unclassified
 byMatrixAnimated: aCOOSparseMatrix
 	| composer result currentLeftRow currentRightColumn priorityColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker transposed newNode sum operationProcess operationBlock operationWindow resultView resultWindow leftMarkerElement rightMarkerElement |
 	columnNumber = aCOOSparseMatrix rowNumber
