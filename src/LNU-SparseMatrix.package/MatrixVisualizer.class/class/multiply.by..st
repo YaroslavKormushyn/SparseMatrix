@@ -11,5 +11,5 @@ multiply: leftMatrix by: rightMatrix
 	composer nameGroup: #left as: 'left'.
 	composer nameGroup: #right as: 'second'.
 	innerContext := [ leftMatrix * rightMatrix ].
-	innerContext := innerContext value.
+	innerContext := innerContext fork.
 	^ composer view

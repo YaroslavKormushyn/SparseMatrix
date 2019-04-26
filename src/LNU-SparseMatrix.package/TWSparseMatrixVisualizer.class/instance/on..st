@@ -16,4 +16,4 @@ on: aTWSparseMatrix
 	view addAll: elements.
 	self drawEdgesWith: elements.
 	RTGridLayout on: elements.
-	self setPositions
+	self setPositionsFor: elements
