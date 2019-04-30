@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "RTAttachPoint",
-	"category" : "LNU-SparseMatrix",
+	"category" : "LNU-SparseMatrix-Roassal-Extensions",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

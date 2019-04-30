@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "LNU-SparseMatrix-Visual",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"composer",
+		"leftMatrix",
+		"rightMatrix",
+		"namedGroups",
+		"backgroundGroups",
+		"elementSize"
+	],
+	"name" : "MatrixOperationVisualizer",
+	"type" : "normal"
+}

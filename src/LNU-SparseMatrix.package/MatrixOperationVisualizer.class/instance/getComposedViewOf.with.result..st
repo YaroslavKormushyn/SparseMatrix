@@ -1,16 +1,9 @@
 as yet unclassified
-getSelfViewWith: rightMatrix result: result
-	| composer |
-	composer := self getComposer.
-	MatrixVisualizer on: self withView: composer view.
+getComposedViewOf: left with: right result: result
+	MatrixVisualizer on: left withView: composer view.
 	composer group: #left.
-	result
-		first:
-			((COOSparseMatrixNode new row: 0 column: 0 value: 0)
-				rightNeighbour: nil).
-	result last: result first.
 	"add result and new right matrices to the view and update the view"
-	MatrixVisualizer on: rightMatrix withView: composer view.
+	MatrixVisualizer on: right withView: composer view.
 	composer group: #right.
 	MatrixVisualizer on: result withView: composer view.
 	composer group: #result.
@@ -18,7 +11,9 @@ getSelfViewWith: rightMatrix result: result
 	composer move: #result onTheRightOf: #right.
 	composer setBackgroundColor: (Color gray alpha: 0.2) forGroup: #right.
 	composer setBackgroundColor: (Color gray alpha: 0.2) forGroup: #left.
-	"composer setBackgroundColor: (Color gray alpha: 0.2) forGroup: #result."
+	composer
+		setBackgroundColor: (Color gray alpha: 0.2)
+		forGroup: #result.
 	composer nameGroup: #left as: 'left'.
 	composer nameGroup: #right as: 'right'.
 	composer nameGroup: #result as: 'result'.

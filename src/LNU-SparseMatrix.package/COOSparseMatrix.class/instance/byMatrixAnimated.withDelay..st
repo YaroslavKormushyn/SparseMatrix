@@ -1,6 +1,6 @@
 as yet unclassified
-byMatrixAnimated: aCOOSparseMatrix
-	| composer result currentLeftRow currentRightColumn priorityColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker transposed newNode sum operationProcess operationBlock leftMarkerElement rightMarkerElement nowProcessingElementIndex namedGroups backgroundGroups |
+byMatrixAnimated: aCOOSparseMatrix withDelay: delay
+	| composer result currentLeftRow currentRightColumn priorityColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker transposed newNode sum operationProcess operationBlock leftMarkerElement rightMarkerElement nowProcessingElementIndex visualizer |
 	columnNumber = aCOOSparseMatrix rowNumber
 		ifFalse: [ Error signal: 'Invalid matrix size' ].
 	(aCOOSparseMatrix isEmpty or: [ self isEmpty ])
@@ -15,14 +15,17 @@ byMatrixAnimated: aCOOSparseMatrix
 				rightNeighbour: nil).
 	result last: result first.
 	transposed := aCOOSparseMatrix transpose.
-	composer := MatrixVisualizer
+	visualizer := MatrixOperationVisualizer new.
+	composer := visualizer
 		getComposedViewOf: self
 		with: transposed
 		result: result.
 	operationBlock := [ leftSavedMatrixMarker := leftMatrixMarker := first.
-	composer selectModel: leftMatrixMarker inGroup: #left.
 	rightMatrixMarker := transposed first.
-	composer selectModel: rightMatrixMarker inGroup: #right.
+	composer
+		selectModels:
+			{rightMatrixMarker.
+			leftMatrixMarker}.
 	currentLeftRow := leftMatrixMarker row.
 	currentRightColumn := rightMatrixMarker row.
 	nowProcessingElementIndex := (RTLabel
@@ -47,8 +50,9 @@ byMatrixAnimated: aCOOSparseMatrix
 	composer nameGroup: #leftMarker as: 'left marker'.
 	composer nameGroup: #rightMarker as: 'right marker'.
 	composer groupToExisting: #labels.
-	namedGroups := #(#left #result #right #leftMarker #rightMarker).
-	backgroundGroups := #(#left #result #right).
+	visualizer
+		namedGroups: #(#left #result #right #leftMarker #rightMarker).
+	visualizer backgroundGroups: #(#left #result #right).
 	composer view signalUpdate.
 	sum := 0.
 	self
@@ -60,18 +64,20 @@ byMatrixAnimated: aCOOSparseMatrix
 							rightMatrixMarker isNil
 								ifTrue: [ rightMatrixMarker := transposed first.
 									leftSavedMatrixMarker := leftMatrixMarker.
-									composer selectModel: leftMatrixMarker inGroup: #left.
-									composer selectModel: rightMatrixMarker inGroup: #right.
+									composer
+										selectModels:
+											{leftMatrixMarker.
+											rightMatrixMarker}.
 									leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
 									rightMarkerElement updateModelAndRedraw: rightMatrixMarker.
-									(Delay forSeconds: 1) wait ].
+									(Delay forSeconds: delay) wait ].
 							"reset left marker to row beginning"
 							composer deselectModel: leftMatrixMarker inGroup: #left.
-							(Delay forSeconds: 1) wait.
+							(Delay forSeconds: delay) wait.
 							leftMatrixMarker := leftSavedMatrixMarker.
 							composer selectModel: leftMatrixMarker inGroup: #left.
 							leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
-							(Delay forSeconds: 1) wait.
+							(Delay forSeconds: delay) wait.
 							currentLeftRow := leftMatrixMarker row.
 							currentRightColumn := rightMatrixMarker row.
 							nowProcessingElementIndex
@@ -92,22 +98,22 @@ byMatrixAnimated: aCOOSparseMatrix
 												and: [ leftMatrixMarker row = currentLeftRow
 														and: [ leftMatrixMarker column < priorityColumn ] ] ]
 												whileTrue: [ composer deselectModel: leftMatrixMarker inGroup: #left.
-													(Delay forSeconds: 1) wait.
+													(Delay forSeconds: delay) wait.
 													leftMatrixMarker := leftMatrixMarker rightNeighbour.
 													composer selectModel: leftMatrixMarker inGroup: #left.
 													leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
-													(Delay forSeconds: 1) wait ].
+													(Delay forSeconds: delay) wait ].
 											leftMatrixMarker isNil
 												ifTrue: [ [ rightMatrixMarker isNotNil
 														and: [ rightMatrixMarker row = currentRightColumn ] ]
 														whileTrue: [ composer deselectModel: rightMatrixMarker inGroup: #right.
-															(Delay forSeconds: 1) wait.
+															(Delay forSeconds: delay) wait.
 															rightMatrixMarker := rightMatrixMarker rightNeighbour.
 															rightMatrixMarker isNotNil
 																ifTrue: [ composer selectModel: rightMatrixMarker inGroup: #right.
 																	rightMarkerElement
 																		updateModelAndRedraw: rightMatrixMarker.
-																	(Delay forSeconds: 1) wait ] ].
+																	(Delay forSeconds: delay) wait ] ].
 
 													"If no intersection - end"
 													rightMatrixMarker isNil
@@ -118,13 +124,13 @@ byMatrixAnimated: aCOOSparseMatrix
 												ifTrue: [ [ rightMatrixMarker isNotNil
 														and: [ rightMatrixMarker row = currentRightColumn ] ]
 														whileTrue: [ composer deselectModel: rightMatrixMarker inGroup: #right.
-															(Delay forSeconds: 1) wait.
+															(Delay forSeconds: delay) wait.
 															rightMatrixMarker := rightMatrixMarker rightNeighbour.
 															rightMatrixMarker isNotNil
 																ifTrue: [ composer selectModel: rightMatrixMarker inGroup: #right.
 																	rightMarkerElement
 																		updateModelAndRedraw: rightMatrixMarker.
-																	(Delay forSeconds: 1) wait ] ].
+																	(Delay forSeconds: delay) wait ] ].
 													next value ].
 											priorityColumn := leftMatrixMarker column.
 
@@ -133,22 +139,22 @@ byMatrixAnimated: aCOOSparseMatrix
 												and: [ rightMatrixMarker row = currentRightColumn
 														and: [ rightMatrixMarker column < priorityColumn ] ] ]
 												whileTrue: [ composer deselectModel: rightMatrixMarker inGroup: #right.
-													(Delay forSeconds: 1) wait.
+													(Delay forSeconds: delay) wait.
 													rightMatrixMarker := rightMatrixMarker rightNeighbour.
-													rightMarkerElement
-														updateModelAndRedraw: rightMatrixMarker.
+													rightMatrixMarker isNotNil ifTrue: [rightMarkerElement
+														updateModelAndRedraw: rightMatrixMarker].
 													composer selectModel: rightMatrixMarker inGroup: #right.
-													(Delay forSeconds: 1) wait ].
+													(Delay forSeconds: delay) wait ].
 											rightMatrixMarker isNil
 												ifTrue: [ [ leftMatrixMarker isNotNil
 														and: [ leftMatrixMarker row = currentLeftRow ] ]
 														whileTrue: [ composer deselectModel: leftMatrixMarker inGroup: #left.
-															(Delay forSeconds: 1) wait.
+															(Delay forSeconds: delay) wait.
 															leftMatrixMarker := leftMatrixMarker rightNeighbour.
 															composer selectModel: leftMatrixMarker inGroup: #left.
-															leftMarkerElement
-																updateModelAndRedraw: leftMatrixMarker.
-															(Delay forSeconds: 1) wait ].
+															leftMatrixMarker isNotNil ifTrue: [leftMarkerElement
+																updateModelAndRedraw: leftMatrixMarker].
+															(Delay forSeconds: delay) wait ].
 
 													"If no intersections - end"
 													leftMatrixMarker isNil
@@ -162,20 +168,22 @@ byMatrixAnimated: aCOOSparseMatrix
 													composer
 														highlightModel: rightMatrixMarker
 														inGroup: #right.
-													(Delay forSeconds: 1) wait.
+													(Delay forSeconds: delay) wait.
 													sum := sum
 														+ (leftMatrixMarker value * rightMatrixMarker value).
 													composer deselectModel: leftMatrixMarker inGroup: #left.
 													composer deselectModel: rightMatrixMarker inGroup: #right.
-													(Delay forSeconds: 1) wait.
+													(Delay forSeconds: delay) wait.
 													leftMatrixMarker := leftMatrixMarker rightNeighbour.
 													rightMatrixMarker := rightMatrixMarker rightNeighbour.
 													leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
-													rightMarkerElement
-														updateModelAndRedraw: rightMatrixMarker.
-													composer selectModel: leftMatrixMarker inGroup: #left.
-													composer selectModel: rightMatrixMarker inGroup: #right.
-													(Delay forSeconds: 1) wait ]
+													rightMatrixMarker isNotNil
+														ifTrue: [ rightMarkerElement updateModelAndRedraw: rightMatrixMarker ].
+													composer
+														selectModels:
+															{leftMatrixMarker.
+															rightMatrixMarker}.
+													(Delay forSeconds: delay) wait ]
 												ifFalse: [ priorityColumn := rightMatrixMarker column ] ] ].
 							sum = 0
 								ifFalse: [ newNode := COOSparseMatrixNode
@@ -186,10 +194,7 @@ byMatrixAnimated: aCOOSparseMatrix
 									newNode leftNeighbour: result last.
 									result last: newNode.
 									sum := 0.
-									composer replaceElementsInGroup: #result with: result.
-									composer move: #result onTheRightOf: #right.
-									composer redrawNamesFor: namedGroups.
-									composer redrawBackgroundsFor: backgroundGroups ] ].
+									visualizer updateResultWith: result ] ].
 					sum = 0
 						ifFalse: [ newNode := COOSparseMatrixNode
 								row: currentLeftRow
@@ -199,35 +204,14 @@ byMatrixAnimated: aCOOSparseMatrix
 							newNode leftNeighbour: result last.
 							result last: newNode.
 							sum := 0.
-							composer replaceElementsInGroup: #result with: result.
-							composer move: #result onTheRightOf: #right.
-							composer redrawNamesFor: namedGroups.
-							composer redrawBackgroundsFor: backgroundGroups ] ] ].
+							visualizer updateResultWith: result ] ] ].
 	"nil the reference to dummy head"
 	result first rightNeighbour leftNeighbour: nil.
 	result first: result first rightNeighbour.
-	composer replaceElementsInGroup: #result with: result.
-	composer move: #result onTheRightOf: #right.
-	composer redrawNamesFor: namedGroups.
-	composer redrawBackgroundsFor: backgroundGroups ].
+	visualizer updateResultWith: result ].
 	operationProcess := operationBlock newProcess.
-	composer view
-		addMenu: 'Save'
-		callback: [ (RTCanvasExporter canvas: composer view canvas)
-				withoutFixedShapes;
-				whole;
-				scale: 5;
-				oversizedBy: 20 @ 20;
-				format: #png;
-				fileName:
-					((TRPlatform current
-						dialogRequest: 'Please enter file name'
-						initialAnswer: 'export.png') ifNil: [ ^ nil ]);
-				export ].
-	composer view addMenu: 'Pause' callback: [ operationProcess suspend ].
-	composer view addMenu: 'Resume' callback: [ operationProcess resume ].
-	composer view
-		addMenu: 'Stop'
-		callback: [ operationProcess terminate.
-			operationProcess := operationBlock newProcess ].
+	self
+		addComposerMenu: composer
+		process: operationProcess
+		block: operationBlock.
 	^ composer view

@@ -1,4 +1,4 @@
-as yet unclassified
+utility
 elementsAsCollection
 	| marker result |
 	self isEmpty
