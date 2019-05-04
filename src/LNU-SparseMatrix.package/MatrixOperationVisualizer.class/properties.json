@@ -6,12 +6,17 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"composer",
 		"leftMatrix",
 		"rightMatrix",
+		"resultMatrix",
+		"process",
+		"composer",
 		"namedGroups",
 		"backgroundGroups",
-		"elementSize"
+		"elementSize",
+		"metaLinks",
+		"delay",
+		"semaphore"
 	],
 	"name" : "MatrixOperationVisualizer",
 	"type" : "normal"

@@ -1,5 +1,5 @@
 as yet unclassified
-byMatrixAnimated: aCOOSparseMatrix withDelay: delay
+byMatrixAnimated: aCOOSparseMatrix withDelay: delay visualizer: viz
 	| result transposed newNode sum operationProcess operationBlock visualizer currentLeftRow currentRightColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker |
 	columnNumber = aCOOSparseMatrix rowNumber
 		ifFalse: [ Error signal: 'Invalid matrix size' ].
@@ -15,16 +15,11 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 				rightNeighbour: nil).
 	result last: result first.
 	transposed := aCOOSparseMatrix transpose.
-	visualizer := MatrixOperationVisualizer new.
+	visualizer := viz.
 	visualizer getComposedViewOf: self with: transposed result: result.
-	visualizer setLinksForMultiplicationOn: self.
 	operationBlock := [ | priorityColumn leftMarkerElement rightMarkerElement nowProcessingElementIndex |
 	leftSavedMatrixMarker := leftMatrixMarker := first.
 	rightMatrixMarker := transposed first.
-	"visualizer
-		selectModels:
-			{rightMatrixMarker.
-			leftMatrixMarker}."
 	currentLeftRow := leftMatrixMarker row.
 	currentRightColumn := rightMatrixMarker row.
 	nowProcessingElementIndex := (RTLabel
@@ -58,18 +53,12 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 							rightMatrixMarker isNil
 								ifTrue: [ rightMatrixMarker := transposed first.
 									leftSavedMatrixMarker := leftMatrixMarker.
-									"visualizer
-										selectModels:
-											{leftMatrixMarker.
-											rightMatrixMarker}."
 									leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
 									rightMarkerElement updateModelAndRedraw: rightMatrixMarker.
 									(Delay forSeconds: delay) wait ].
 							"reset left marker to row beginning"
-							"visualizer deselectModel: leftMatrixMarker inGroup: #left."
 							(Delay forSeconds: delay) wait.
 							leftMatrixMarker := leftSavedMatrixMarker.
-							"visualizer selectModel: leftMatrixMarker inGroup: #left."
 							leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
 							(Delay forSeconds: delay) wait.
 							currentLeftRow := leftMatrixMarker row.
@@ -91,22 +80,15 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 											[ leftMatrixMarker isNotNil
 												and: [ leftMatrixMarker row = currentLeftRow
 														and: [ leftMatrixMarker column < priorityColumn ] ] ]
-												whileTrue: [ "visualizer deselectModel: leftMatrixMarker inGroup: #left."
-													(Delay forSeconds: delay) wait.
-													leftMatrixMarker := leftMatrixMarker rightNeighbour.
-													"visualizer selectModel: leftMatrixMarker inGroup: #left."
+												whileTrue: [ leftMatrixMarker := leftMatrixMarker rightNeighbour.
 													leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
 													(Delay forSeconds: delay) wait ].
 											leftMatrixMarker isNil
 												ifTrue: [ [ rightMatrixMarker isNotNil
 														and: [ rightMatrixMarker row = currentRightColumn ] ]
-														whileTrue: [ visualizer deselectModel: rightMatrixMarker inGroup: #right.
-															(Delay forSeconds: delay) wait.
-															rightMatrixMarker := rightMatrixMarker rightNeighbour.
+														whileTrue: [ rightMatrixMarker := rightMatrixMarker rightNeighbour.
 															rightMatrixMarker isNotNil
-																ifTrue: [ visualizer selectModel: rightMatrixMarker inGroup: #right.
-																	rightMarkerElement
-																		updateModelAndRedraw: rightMatrixMarker.
+																ifTrue: [ rightMarkerElement updateModelAndRedraw: rightMatrixMarker.
 																	(Delay forSeconds: delay) wait ] ].
 
 													"If no intersection - end"
@@ -117,13 +99,9 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 											leftMatrixMarker row ~= currentLeftRow
 												ifTrue: [ [ rightMatrixMarker isNotNil
 														and: [ rightMatrixMarker row = currentRightColumn ] ]
-														whileTrue: [ visualizer deselectModel: rightMatrixMarker inGroup: #right.
-															(Delay forSeconds: delay) wait.
-															rightMatrixMarker := rightMatrixMarker rightNeighbour.
+														whileTrue: [ rightMatrixMarker := rightMatrixMarker rightNeighbour.
 															rightMatrixMarker isNotNil
-																ifTrue: [ visualizer selectModel: rightMatrixMarker inGroup: #right.
-																	rightMarkerElement
-																		updateModelAndRedraw: rightMatrixMarker.
+																ifTrue: [ rightMarkerElement updateModelAndRedraw: rightMatrixMarker.
 																	(Delay forSeconds: delay) wait ] ].
 													next value ].
 											priorityColumn := leftMatrixMarker column.
@@ -132,20 +110,14 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 											[ rightMatrixMarker isNotNil
 												and: [ rightMatrixMarker row = currentRightColumn
 														and: [ rightMatrixMarker column < priorityColumn ] ] ]
-												whileTrue: [ visualizer deselectModel: rightMatrixMarker inGroup: #right.
-													(Delay forSeconds: delay) wait.
-													rightMatrixMarker := rightMatrixMarker rightNeighbour.
+												whileTrue: [ rightMatrixMarker := rightMatrixMarker rightNeighbour.
 													rightMatrixMarker isNotNil
 														ifTrue: [ rightMarkerElement updateModelAndRedraw: rightMatrixMarker ].
-													visualizer selectModel: rightMatrixMarker inGroup: #right.
 													(Delay forSeconds: delay) wait ].
 											rightMatrixMarker isNil
 												ifTrue: [ [ leftMatrixMarker isNotNil
 														and: [ leftMatrixMarker row = currentLeftRow ] ]
-														whileTrue: [ "visualizer deselectModel: leftMatrixMarker inGroup: #left."
-															(Delay forSeconds: delay) wait.
-															leftMatrixMarker := leftMatrixMarker rightNeighbour.
-															"visualizer selectModel: leftMatrixMarker inGroup: #left."
+														whileTrue: [ leftMatrixMarker := leftMatrixMarker rightNeighbour.
 															leftMatrixMarker isNotNil
 																ifTrue: [ leftMarkerElement updateModelAndRedraw: leftMatrixMarker ].
 															(Delay forSeconds: delay) wait ].
@@ -158,27 +130,21 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 											rightMatrixMarker row ~= currentRightColumn
 												ifTrue: [ next value ].
 											leftMatrixMarker column = rightMatrixMarker column
-												ifTrue: [ visualizer highlightModel: leftMatrixMarker inGroup: #left.
+												ifTrue: [ 
+													visualizer
+														highlightModel: leftMatrixMarker
+														inGroup: #left.
 													visualizer
 														highlightModel: rightMatrixMarker
 														inGroup: #right.
 													(Delay forSeconds: delay) wait.
 													sum := sum
 														+ (leftMatrixMarker value * rightMatrixMarker value).
-													"visualizer deselectModel: leftMatrixMarker inGroup: #left."
-													visualizer
-														deselectModel: rightMatrixMarker
-														inGroup: #right.
-													(Delay forSeconds: delay) wait.
-													leftMatrixMarker := leftMatrixMarker rightNeighbour.
+														leftMatrixMarker := leftMatrixMarker rightNeighbour.
 													rightMatrixMarker := rightMatrixMarker rightNeighbour.
 													leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
 													rightMatrixMarker isNotNil
 														ifTrue: [ rightMarkerElement updateModelAndRedraw: rightMatrixMarker ].
-													visualizer
-														selectModels:
-															{leftMatrixMarker.
-															rightMatrixMarker}.
 													(Delay forSeconds: delay) wait ]
 												ifFalse: [ priorityColumn := rightMatrixMarker column ] ] ].
 							sum = 0
@@ -204,8 +170,7 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 	"nil the reference to dummy head"
 	result first rightNeighbour leftNeighbour: nil.
 	result first: result first rightNeighbour.
-	visualizer updateResultWith: result.
-	visualizer unlink ].
+	visualizer updateResultWith: result ].
 	operationProcess := operationBlock newProcess.
 	visualizer setUpMenuWithProcess: operationProcess.
 	^ visualizer view

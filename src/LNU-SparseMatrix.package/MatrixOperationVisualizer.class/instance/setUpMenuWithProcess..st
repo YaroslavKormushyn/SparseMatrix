@@ -1,6 +1,6 @@
-adding
-addComposerMenu: composer process: operationProcess block: operationBlock
-composer view
+as yet unclassified
+setUpMenuWithProcess: operationProcess
+	composer view
 		addMenu: 'Save'
 		callback: [ (RTCanvasExporter canvas: composer view canvas)
 				withoutFixedShapes;
@@ -15,7 +15,7 @@ composer view
 				export ].
 	composer view addMenu: 'Pause' callback: [ operationProcess suspend ].
 	composer view addMenu: 'Resume' callback: [ operationProcess resume ].
-	"composer view
+		"composer view
 		addMenu: 'Stop'
 		callback: [ operationProcess terminate.
 			operationProcess := operationBlock newProcess ]."

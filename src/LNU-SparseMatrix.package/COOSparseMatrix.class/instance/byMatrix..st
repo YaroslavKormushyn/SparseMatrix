@@ -1,20 +1,25 @@
 private
 byMatrix: aCOOSparseMatrix
-	| result currentLeftRow currentRightColumn priorityColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker transposed newNode head tail sum |
+	| result currentLeftRow currentRightColumn priorityColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker transposed newNode sum |
 	columnNumber = aCOOSparseMatrix rowNumber
 		ifFalse: [ Error signal: 'Invalid matrix size' ].
 	(aCOOSparseMatrix isEmpty or: [ self isEmpty ])
 		ifTrue:
 			[ ^ self class rows: rowNumber columns: aCOOSparseMatrix columnNumber ].
-	result := self class
-		rows: rowNumber
-		columns: aCOOSparseMatrix columnNumber.
+	
 	transposed := aCOOSparseMatrix transpose.
 	leftSavedMatrixMarker := leftMatrixMarker := first.
 	rightMatrixMarker := transposed first.
 	currentLeftRow := leftMatrixMarker row.
 	currentRightColumn := rightMatrixMarker row.
-	head := tail := COOSparseMatrixNode new rightNeighbour: nil.
+	result := self class
+		rows: rowNumber
+		columns: aCOOSparseMatrix columnNumber.
+	result
+		first:
+			((COOSparseMatrixNode new row: 0 column: 0 value: 0)
+				rightNeighbour: nil).
+	result last: result first.
 	sum := 0.
 	self
 		withEscaper: [ :end | 
@@ -86,22 +91,20 @@ byMatrix: aCOOSparseMatrix
 										row: currentLeftRow
 										column: currentRightColumn
 										value: sum.
-									tail rightNeighbour: newNode.
-									newNode leftNeighbour: tail.
-									tail := newNode.
+									result last rightNeighbour: newNode.
+									newNode leftNeighbour: result last.
+									result last: newNode.
 									sum := 0 ] ].
 					sum = 0
 						ifFalse: [ newNode := COOSparseMatrixNode
 								row: currentLeftRow
 								column: currentRightColumn
 								value: sum.
-							tail rightNeighbour: newNode.
-							newNode leftNeighbour: tail.
-							tail := newNode.
+							result last rightNeighbour: newNode.
+							newNode leftNeighbour: result last.
+							result last: newNode.
 							sum := 0 ] ] ].
 	"nil the reference to dummy head"
-	head rightNeighbour leftNeighbour: nil.
-	result
-		first: head rightNeighbour;
-		last: tail.
+	result first rightNeighbour leftNeighbour: nil.
+	result first: result first rightNeighbour.
 	^ result

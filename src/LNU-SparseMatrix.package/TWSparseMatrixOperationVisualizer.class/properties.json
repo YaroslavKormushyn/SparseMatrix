@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "MatrixOperationVisualizer",
+	"category" : "LNU-SparseMatrix-Visual",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "TWSparseMatrixOperationVisualizer",
+	"type" : "normal"
+}

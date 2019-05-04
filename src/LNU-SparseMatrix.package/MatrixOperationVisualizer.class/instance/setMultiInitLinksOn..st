@@ -1,0 +1,3 @@
+initialization
+setMultiInitLinksOn: matrixInstance
+self subclassResponsibility 

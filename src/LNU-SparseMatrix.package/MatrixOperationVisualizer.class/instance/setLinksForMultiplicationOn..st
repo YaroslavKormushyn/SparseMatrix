@@ -1,0 +1,3 @@
+as yet unclassified
+setLinksForMultiplicationOn: matrixInstance
+	self subclassResponsibility 
