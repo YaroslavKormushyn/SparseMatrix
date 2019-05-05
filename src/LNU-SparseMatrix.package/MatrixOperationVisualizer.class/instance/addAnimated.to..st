@@ -5,7 +5,7 @@ addAnimated: left to: right
 	leftMatrix := left.
 	rightMatrix := right.
 	"process of multiplication"
-	process := [ leftMatrix + rightMatrix ] newProcess.
+	process := [ [leftMatrix + rightMatrix] ensure: [ self unlink ] ] newProcess.
 	"set initial links to initialize the view"
 
 	"the process runs until all the initialization is done and the view is in its initial state"

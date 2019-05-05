@@ -1,6 +1,6 @@
 initialization
 setAdditionLinksOn: matrixInstance
-	| leftMarkerLinkBefore leftMarkerLinkAfter rightMarkerLinkBefore rightMarkerLinkAfter method sumLink |
+	| leftMarkerLinkBefore leftMarkerLinkAfter rightMarkerLinkBefore rightMarkerLinkAfter method |
 	method := #+.
 	"self
 		setMultiLinksForCurrProcElementIndexOn: matrixInstance
@@ -32,7 +32,7 @@ setAdditionLinksOn: matrixInstance
 			leftMatrixMarker := element.
 			"highlights marker if it was copied - most common path in the method"
 			"uninstalls itself after one use since the algorithm does not revert"
-			leftMarkerHighlightLink := MetaLink new.
+			element isNotNil ifTrue: [leftMarkerHighlightLink := MetaLink new.
 			leftMarkerHighlightLink
 				metaObject: [ self highlightModel: element inGroup: #left.
 					Transcript
@@ -42,8 +42,7 @@ setAdditionLinksOn: matrixInstance
 					leftMarkerHighlightLink uninstall ].
 			leftMarkerHighlightLink selector: #value.
 			leftMarkerHighlightLink control: #after.
-			element link: leftMarkerHighlightLink toMethodNamed: #copy.
-			metaLinks add: leftMarkerHighlightLink.
+			element link: leftMarkerHighlightLink toMethodNamed: #copy].
 			"draw the marker element on the view if its the initialization"
 			leftMarkerElement isNil
 				ifTrue: [ leftMarkerElement := (COOSparseMatrixVisualizer new
@@ -86,6 +85,7 @@ setAdditionLinksOn: matrixInstance
 			rightMatrixMarker := element.
 			"highlights marker if it was copied - most common path in the method"
 			"uninstalls itself after one use since the algorithm does not revert"
+			element isNotNil ifTrue:[
 			rightMarkerHighlightLink := MetaLink new.
 			rightMarkerHighlightLink
 				metaObject: [ :elementCopy | 
@@ -116,13 +116,13 @@ setAdditionLinksOn: matrixInstance
 						cr.
 					delay wait.
 					"add to metaLinks in case it won't run to uninstall after animation ends"
-					metaLinks add: leftMatrixMarkerHightlightLink.
+					"metaLinks add: leftMatrixMarkerHightlightLink."
 					rightMarkerHighlightLink uninstall ].
 			rightMarkerHighlightLink selector: #value:.
 			rightMarkerHighlightLink arguments: #(value).
 			rightMarkerHighlightLink control: #after.
 			element link: rightMarkerHighlightLink toMethodNamed: #copy.
-			metaLinks add: rightMarkerHighlightLink.
+			metaLinks add: rightMarkerHighlightLink].
 			rightMarkerElement isNil
 				ifTrue: [ rightMarkerElement := (COOSparseMatrixVisualizer new
 						getElementShapeScaled: 5) elementOn: element ].

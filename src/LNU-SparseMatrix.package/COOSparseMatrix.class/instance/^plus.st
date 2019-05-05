@@ -1,7 +1,7 @@
 arithmetic
 + aCOOMatrix
 	| leftMatrixMarker rightMatrixMarker result newNode continue |
-	(aCOOMatrix isMemberOf: self class)
+	(self  isKindOf: aCOOMatrix class)
 		ifFalse: [ Error signal: 'Convert matrix' ].
 	(rowNumber = aCOOMatrix rowNumber
 		and: [ columnNumber = aCOOMatrix columnNumber ])
