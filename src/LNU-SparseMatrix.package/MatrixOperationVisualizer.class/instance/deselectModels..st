@@ -1,3 +1,3 @@
-as yet unclassified
+convenience
 deselectModels: modelCollection
 	composer deselectModels: modelCollection

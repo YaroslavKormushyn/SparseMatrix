@@ -1,14 +1,10 @@
-deprecated - compatibility layer
-getComposedViewOf: left with: right result: result
-	MatrixVisualizer on: left withView: composer view.
-	composer group: #left.
-	"add result and new right matrices to the view and update the view"
-	MatrixVisualizer on: right withView: composer view.
-	composer group: #right.
-	MatrixVisualizer on: result withView: composer view.
-	composer group: #result.
+initialization
+setPositionsForAddition
 	composer move: #left onTheLeftOf: #right.
 	composer move: #result onTheRightOf: #right.
+	composer move: #leftMarker below: #left.
+	composer move: #rightMarker below: #right.
+	composer move: #nowProcessing above: #right.
 	composer setBackgroundColor: (Color gray alpha: 0.2) forGroup: #right.
 	composer setBackgroundColor: (Color gray alpha: 0.2) forGroup: #left.
 	composer
@@ -17,5 +13,6 @@ getComposedViewOf: left with: right result: result
 	composer nameGroup: #left as: 'left'.
 	composer nameGroup: #right as: 'right'.
 	composer nameGroup: #result as: 'result'.
-	composer group: #labels.
-	^ composer
+	composer nameGroup: #leftMarker as: 'left marker'.
+	composer nameGroup: #rightMarker as: 'right marker'.
+	composer group: #labels

@@ -1,11 +1,14 @@
 initialization
-setMultiInitLinksOn: matrixInstance
-	| leftRowIndexLink rightColumnIndexLink leftMarkerLinkBefore leftMarkerLinkAfter rightMarkerLinkBefore rightMarkerLinkAfter resultMatrixLink transposedRightMatrixLink method sumLink |
+setMultiLinksOn: matrixInstance
+	| leftMarkerLinkBefore leftMarkerLinkAfter rightMarkerLinkBefore rightMarkerLinkAfter method sumLink |
 	method := #byMatrix:.
-	self setLinksForProcessedElementIndexOn: matrixInstance inMethod: method.
-	self setLinksForResultOn: matrixInstance inMethod: method.
-		self setLinksForRightMatrixOn: matrixInstance inMethod: method.
-			sumLink := MetaLink new.
+	self
+		setMultiLinksForCurrProcElementIndexOn: matrixInstance
+		inMethod: method.
+	self setMultiLinksForResultOn: matrixInstance inMethod: method.
+	self setMultiLinksForRightMatrixOn: matrixInstance inMethod: method.
+	"set highlights on elements which were added to sum according to algorithm in the method"
+	sumLink := MetaLink new.
 	sumLink
 		metaObject: [ :sumValue | 
 			sumValue ~= 0
@@ -13,13 +16,6 @@ setMultiInitLinksOn: matrixInstance
 						highlightModels:
 							{leftMatrixMarker.
 							rightMatrixMarker}.
-					Transcript
-						show:
-							'highlight '
-								, (leftMatrixMarker row @ leftMatrixMarker column) asString
-								, '&'
-								, (rightMatrixMarker row @ rightMatrixMarker column) asString;
-						cr.
 					delay wait ] ].
 	sumLink selector: #value:.
 	sumLink arguments: #(value).
@@ -29,14 +25,12 @@ setMultiInitLinksOn: matrixInstance
 		toTemporaryNamed: #sum
 		inMethod: method
 		option: #write.
+	"remove selection from previous marker element"
 	leftMarkerLinkBefore := MetaLink new.
 	leftMarkerLinkBefore
 		metaObject: [ :value | 
 			value isNotNil
-				ifTrue: [ self deselectModel: value.
-					Transcript
-						show: 'deselect left ' , (value row @ value column) asString;
-						cr ] ].
+				ifTrue: [ self deselectModel: value ] ].
 	leftMarkerLinkBefore selector: #value:.
 	leftMarkerLinkBefore arguments: #(value).
 	leftMarkerLinkBefore control: #before.
@@ -45,6 +39,7 @@ setMultiInitLinksOn: matrixInstance
 		toTemporaryNamed: #leftMatrixMarker
 		inMethod: method
 		option: #write.
+	"select current marker element"
 	leftMarkerLinkAfter := MetaLink new.
 	leftMarkerLinkAfter
 		metaObject: [ :element | 
@@ -56,9 +51,6 @@ setMultiInitLinksOn: matrixInstance
 			"select the element and update the view"
 			element isNotNil
 				ifTrue: [ self selectModel: element.
-					Transcript
-						show: 'select left ' , (element row @ element column) asString;
-						cr.
 					leftMarkerElement updateModelAndRedraw: element.
 					delay wait ] ].
 	leftMarkerLinkAfter selector: #value:.
@@ -69,14 +61,12 @@ setMultiInitLinksOn: matrixInstance
 		toTemporaryNamed: #leftMatrixMarker
 		inMethod: method
 		option: #write.
+	"remove selection from previous marker element"
 	rightMarkerLinkBefore := MetaLink new.
 	rightMarkerLinkBefore
 		metaObject: [ :value | 
 			value isNotNil
-				ifTrue: [ self deselectModel: value.
-					Transcript
-						show: 'deselect right ' , (value row @ value column) asString;
-						cr ] ].
+				ifTrue: [ self deselectModel: value ] ].
 	rightMarkerLinkBefore selector: #value:.
 	rightMarkerLinkBefore arguments: #(value).
 	rightMarkerLinkBefore control: #before.
@@ -85,6 +75,7 @@ setMultiInitLinksOn: matrixInstance
 		toTemporaryNamed: #rightMatrixMarker
 		inMethod: method
 		option: #write.
+	"select current right matrix marker element"
 	rightMarkerLinkAfter := MetaLink new.
 	rightMarkerLinkAfter
 		metaObject: [ :element | 
@@ -94,9 +85,6 @@ setMultiInitLinksOn: matrixInstance
 						getElementShapeScaled: 5) elementOn: element ].
 			element isNotNil
 				ifTrue: [ self selectModel: element.
-					Transcript
-						show: 'select right ' , (element row @ element column) asString;
-						cr.
 					rightMarkerElement updateModelAndRedraw: element.
 					delay wait ] ].
 	rightMarkerLinkAfter selector: #value:.
@@ -109,11 +97,7 @@ setMultiInitLinksOn: matrixInstance
 		option: #write.
 	metaLinks
 		addAll:
-			{leftRowIndexLink.
-			rightColumnIndexLink.
-			leftMarkerLinkBefore.
+			{leftMarkerLinkBefore.
 			leftMarkerLinkAfter.
 			rightMarkerLinkBefore.
-			rightMarkerLinkAfter.
-			resultMatrixLink.
-			transposedRightMatrixLink}
+			rightMarkerLinkAfter.sumLink}

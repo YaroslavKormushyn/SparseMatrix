@@ -1,4 +1,4 @@
-as yet unclassified
+initialization
 setPositionsForMultiplication
 	composer move: #left onTheLeftOf: #right.
 	composer move: #result onTheRightOf: #right.

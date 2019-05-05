@@ -1,7 +1,8 @@
 initialization
-setLinksForRightMatrixOn: matrixInstance inMethod: methodName
-|transposedRightMatrixLink|
-transposedRightMatrixLink := MetaLink new.
+setMultiLinksForRightMatrixOn: matrixInstance inMethod: methodName
+	| transposedRightMatrixLink |
+	"reset the right matrix according to the algorithm in the method"
+	transposedRightMatrixLink := MetaLink new.
 	transposedRightMatrixLink
 		metaObject: [ :value | rightMatrix := value ].
 	transposedRightMatrixLink selector: #value:.
@@ -12,3 +13,5 @@ transposedRightMatrixLink := MetaLink new.
 		toTemporaryNamed: #transposed
 		inMethod: methodName
 		option: #write.
+		metaLinks
+		add: transposedRightMatrixLink 

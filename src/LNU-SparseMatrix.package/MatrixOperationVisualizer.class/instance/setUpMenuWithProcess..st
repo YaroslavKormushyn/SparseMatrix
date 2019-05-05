@@ -1,4 +1,4 @@
-as yet unclassified
+build ui
 setUpMenuWithProcess: operationProcess
 	composer view
 		addMenu: 'Save'

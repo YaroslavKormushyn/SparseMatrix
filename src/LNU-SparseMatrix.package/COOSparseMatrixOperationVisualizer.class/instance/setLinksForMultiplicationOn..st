@@ -1,4 +1,4 @@
-as yet unclassified
+deprecated - compatibility layer
 setLinksForMultiplicationOn: matrixInstance
 	| leftMarkerHighlightLink rightMarkerHighlightLink resultMatrixUpdateLinkFirst resultMatrixUpdateLinkLast |
 	leftMarkerHighlightLink := MetaLink new.

@@ -1,3 +1,3 @@
-as yet unclassified
+convenience
 highlightModel: model
 	composer highlightModel: model

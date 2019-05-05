@@ -1,3 +1,3 @@
-as yet unclassified
+convenience
 selectModel: model
 	composer selectModel: model

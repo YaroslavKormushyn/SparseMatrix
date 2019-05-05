@@ -1,3 +1,3 @@
 initialization
-setPositionsForMultiplication
+setAdditionLinksOn: matrixInstance
 	self subclassResponsibility 

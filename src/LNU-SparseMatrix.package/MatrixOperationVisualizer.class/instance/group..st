@@ -1,3 +1,3 @@
-as yet unclassified
+convenience
 group: aName
 	composer group: aName

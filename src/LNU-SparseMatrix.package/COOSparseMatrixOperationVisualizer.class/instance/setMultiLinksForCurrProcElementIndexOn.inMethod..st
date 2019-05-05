@@ -1,7 +1,9 @@
 initialization
-setLinksForProcessedElementIndexOn: matrixInstance inMethod: methodName
-|leftRowIndexLink rightColumnIndexLink|
-leftRowIndexLink := MetaLink new.
+setMultiLinksForCurrProcElementIndexOn: matrixInstance inMethod: methodName
+	"Set links for the index in label 'Now processing'"
+
+	| leftRowIndexLink rightColumnIndexLink |
+	leftRowIndexLink := MetaLink new.
 	leftRowIndexLink
 		metaObject: [ :value | 
 			currentLeftRow := value.
@@ -18,7 +20,6 @@ leftRowIndexLink := MetaLink new.
 		toTemporaryNamed: #currentLeftRow
 		inMethod: methodName
 		option: #write.
-		
 	rightColumnIndexLink := MetaLink new.
 	rightColumnIndexLink
 		metaObject: [ :value | 
@@ -36,3 +37,7 @@ leftRowIndexLink := MetaLink new.
 		toTemporaryNamed: #currentRightColumn
 		inMethod: methodName
 		option: #write.
+		metaLinks
+				addAll:
+					{leftRowIndexLink.
+					rightColumnIndexLink}
