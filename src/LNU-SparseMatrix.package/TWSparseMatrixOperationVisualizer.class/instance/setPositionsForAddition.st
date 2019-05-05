@@ -1,5 +1,5 @@
 initialization
-setPositionsForMultiplication
+setPositionsForAddition
 	composer move: #left onTheLeftOf: #right.
 	composer move: #result onTheRightOf: #right.
 	composer move: #leftMarker below: #left.

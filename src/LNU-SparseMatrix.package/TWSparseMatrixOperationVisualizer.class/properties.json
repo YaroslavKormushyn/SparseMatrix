@@ -5,7 +5,16 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"currentLeftRow",
+		"currentRightColumn",
+		"leftMatrixMarker",
+		"leftSavedMatrixMarker",
+		"rightMatrixMarker",
+		"nowProcessingElementIndex",
+		"leftMarkerElement",
+		"rightMarkerElement"
+	],
 	"name" : "TWSparseMatrixOperationVisualizer",
 	"type" : "normal"
 }
