@@ -50,7 +50,7 @@ onLinkedList: aLinkedList inRow: rowIndex
 		drawEdgesWith: elements
 		connectTo: [ :elLink | 
 			elLink nextLink isNotNil
-				ifTrue: [ elLink next ] ].
+				ifTrue: [ elLink nextLink ] ].
 	RTGridLayout on: elements.
 	self
 		setPositionsFor: elements
@@ -62,4 +62,4 @@ onLinkedList: aLinkedList inRow: rowIndex
 			e model value isNil
 				ifTrue: [ continue value ].
 			aNode := e model value.
-			e translateTo: (elementSize + gap) * aNode column ] valueWithExit ]
+			e translateTo: (elementSize + gap) * (aNode column @ rowIndex) ] valueWithExit ]
