@@ -14,20 +14,18 @@ byMatrix: aLILSparseMatrix
 		collect: [ :rowIndex | 
 			list := LinkedList with: LILSparseMatrixNode new.
 			cachedLeftRow := rows at: rowIndex.
-			1 to: result columnNumber
-				do: [ :columnIndex | 
-					cachedRightColumn := other rows at: columnIndex.
-					sum := (cachedLeftRow
-						collect: [ :leftNode | 
-							index := cachedRightColumn
-								findFirst: [ :rightNode | rightNode column = leftNode column ].
-							index = 0
-								ifFalse: [ leftNode value * (cachedRightColumn at: index) value ] ]
-						thenReject: [ :el | el isNil ]) detectSum: [ :each | each ].
-					sum = 0
-						ifFalse: [ list addLast:
-								(LILSparseMatrixNode column: columnIndex value: sum).
-							sum := 0 ] ].
+			1 to: result columnNumber do: [ :columnIndex | 
+				cachedRightColumn := other rows at: columnIndex.
+				sum := (cachedLeftRow
+					collect: [ :leftNode | 
+						index := cachedRightColumn
+							findFirst: [ :rightNode | rightNode column = leftNode column ].
+						index = 0
+							ifFalse: [ leftNode value * (cachedRightColumn at: index) value ] ]
+					thenReject: [ :el | el isNil ]) detectSum: [ :each | each ].
+				sum = 0
+					ifFalse: [ list addLast: (LILSparseMatrixNode column: columnIndex value: sum).
+						sum := 0 ] ].
 			list ].
-	arr keysAndValuesDo: [ :i :li | result rows at: i put: li ].
+	arr keysAndValuesDo: [ :i :li | result rows at: i put: li copyWithoutFirst].
 	^ result

@@ -9,6 +9,7 @@
 		"row",
 		"column",
 		"value",
+		"source",
 		"next"
 	],
 	"name" : "MatrixElement",
