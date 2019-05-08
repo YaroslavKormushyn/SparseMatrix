@@ -8,7 +8,7 @@ elementsAsCollection
 			result addAll: columns.
 			1 to: rows size do: [ :rowInd | 
 				marker := (rows at: rowInd) rightNeighbour.
-				[ marker column ~= 0 ]
+				[ marker isNotNil and: [marker column ~= 0] ]
 					whileTrue: [ result add: marker.
 						marker := marker rightNeighbour ] ] ].
 	^ result
