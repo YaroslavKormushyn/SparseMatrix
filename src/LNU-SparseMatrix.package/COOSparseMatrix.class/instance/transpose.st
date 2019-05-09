@@ -9,9 +9,7 @@ transpose
 					left row < right row
 						or: [ left row = right row and: [ left column < right column ] ] ].
 			[ marker isNotNil ]
-				whileTrue: [ tempList
-						add:
-							marker copy.
+				whileTrue: [ tempList add: (COOSparseMatrixNode row: marker column column: marker row value: marker value).
 					marker := marker rightNeighbour ].
 			tempList reSort.
 			tempList
