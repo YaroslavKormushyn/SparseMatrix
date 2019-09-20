@@ -32,17 +32,18 @@ setAdditionLinksOn: matrixInstance
 			leftMatrixMarker := element.
 			"highlights marker if it was copied - most common path in the method"
 			"uninstalls itself after one use since the algorithm does not revert"
-			element isNotNil ifTrue: [leftMarkerHighlightLink := MetaLink new.
-			leftMarkerHighlightLink
-				metaObject: [ self highlightModel: element inGroup: #left.
-					Transcript
-						show: 'highlight left ' , (element row @ element column) asString;
-						cr.
-					delay wait.
-					leftMarkerHighlightLink uninstall ].
-			leftMarkerHighlightLink selector: #value.
-			leftMarkerHighlightLink control: #after.
-			element link: leftMarkerHighlightLink toMethodNamed: #copy].
+			element isNotNil
+				ifTrue: [ leftMarkerHighlightLink := MetaLink new.
+					leftMarkerHighlightLink
+						metaObject: [ self highlightModel: element inGroup: #left.
+							Transcript
+								show: 'highlight left ' , (element row @ element column) asString;
+								cr.
+							delay copy wait.
+							leftMarkerHighlightLink uninstall ].
+					leftMarkerHighlightLink selector: #value.
+					leftMarkerHighlightLink control: #after.
+					element link: leftMarkerHighlightLink toMethodNamed: #copy ].
 			"draw the marker element on the view if its the initialization"
 			leftMarkerElement isNil
 				ifTrue: [ leftMarkerElement := (COOSparseMatrixVisualizer new
@@ -54,7 +55,7 @@ setAdditionLinksOn: matrixInstance
 						show: 'select left ' , (element row @ element column) asString;
 						cr.
 					leftMarkerElement updateModelAndRedraw: element.
-					delay wait ] ].
+					delay copy wait ] ].
 	leftMarkerLinkAfter selector: #value:.
 	leftMarkerLinkAfter arguments: #(value).
 	leftMarkerLinkAfter control: #after.
@@ -85,44 +86,44 @@ setAdditionLinksOn: matrixInstance
 			rightMatrixMarker := element.
 			"highlights marker if it was copied - most common path in the method"
 			"uninstalls itself after one use since the algorithm does not revert"
-			element isNotNil ifTrue:[
-			rightMarkerHighlightLink := MetaLink new.
-			rightMarkerHighlightLink
-				metaObject: [ :elementCopy | 
-					"elementCopy is the copied object which we use to set a link to value:"
-					"with that we know if it's selecting left and right markers or only one of them"
-					| leftMatrixMarkerHightlightLink |
-					leftMatrixMarkerHightlightLink := MetaLink new.
-					leftMatrixMarkerHightlightLink
-						metaObject: [ "the link is set to right only according to the method code"
-							"left is never the object which is copied in this situation"
-							self highlightModel: leftMatrixMarker inGroup: #left.
+			element isNotNil
+				ifTrue: [ rightMarkerHighlightLink := MetaLink new.
+					rightMarkerHighlightLink
+						metaObject: [ :elementCopy | 
+							"elementCopy is the copied object which we use to set a link to value:"
+							"with that we know if it's selecting left and right markers or only one of them"
+							| leftMatrixMarkerHightlightLink |
+							leftMatrixMarkerHightlightLink := MetaLink new.
+							leftMatrixMarkerHightlightLink
+								metaObject: [ "the link is set to right only according to the method code"
+									"left is never the object which is copied in this situation"
+									self highlightModel: leftMatrixMarker inGroup: #left.
+									Transcript
+										show:
+											'highlight left '
+												, (leftMatrixMarker row @ leftMatrixMarker column) asString;
+										cr.
+									delay copy wait
+									"leftMatrixMarkerHightlightLink uninstall" ].
+							leftMatrixMarkerHightlightLink selector: #value.
+							leftMatrixMarkerHightlightLink control: #after.
+							elementCopy
+								link: leftMatrixMarkerHightlightLink
+								toMethodNamed: #value:.
+							"highlight the right marker and uninstall itself after first use"
+							self highlightModel: element inGroup: #right.
 							Transcript
-								show:
-									'highlight left '
-										, (leftMatrixMarker row @ leftMatrixMarker column) asString;
+								show: 'highlight right ' , (element row @ element column) asString;
 								cr.
-							delay wait
-							"leftMatrixMarkerHightlightLink uninstall" ].
-					leftMatrixMarkerHightlightLink selector: #value.
-					leftMatrixMarkerHightlightLink control: #after.
-					elementCopy
-						link: leftMatrixMarkerHightlightLink
-						toMethodNamed: #value:.
-					"highlight the right marker and uninstall itself after first use"
-					self highlightModel: element inGroup: #right.
-					Transcript
-						show: 'highlight right ' , (element row @ element column) asString;
-						cr.
-					delay wait.
-					"add to metaLinks in case it won't run to uninstall after animation ends"
-					"metaLinks add: leftMatrixMarkerHightlightLink."
-					rightMarkerHighlightLink uninstall ].
-			rightMarkerHighlightLink selector: #value:.
-			rightMarkerHighlightLink arguments: #(value).
-			rightMarkerHighlightLink control: #after.
-			element link: rightMarkerHighlightLink toMethodNamed: #copy.
-			metaLinks add: rightMarkerHighlightLink].
+							delay copy wait.
+							"add to metaLinks in case it won't run to uninstall after animation ends"
+							"metaLinks add: leftMatrixMarkerHightlightLink."
+							rightMarkerHighlightLink uninstall ].
+					rightMarkerHighlightLink selector: #value:.
+					rightMarkerHighlightLink arguments: #(value).
+					rightMarkerHighlightLink control: #after.
+					element link: rightMarkerHighlightLink toMethodNamed: #copy.
+					metaLinks add: rightMarkerHighlightLink ].
 			rightMarkerElement isNil
 				ifTrue: [ rightMarkerElement := (COOSparseMatrixVisualizer new
 						getElementShapeScaled: 5) elementOn: element ].
@@ -132,7 +133,7 @@ setAdditionLinksOn: matrixInstance
 						show: 'select right ' , (element row @ element column) asString;
 						cr.
 					rightMarkerElement updateModelAndRedraw: element.
-					delay wait ] ].
+					delay copy wait ] ].
 	rightMarkerLinkAfter selector: #value:.
 	rightMarkerLinkAfter arguments: #(value).
 	rightMarkerLinkAfter control: #after.

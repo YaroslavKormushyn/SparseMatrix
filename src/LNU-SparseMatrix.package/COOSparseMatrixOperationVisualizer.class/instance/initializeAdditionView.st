@@ -8,8 +8,8 @@ initializeAdditionView
 	composer group: #right.
 	MatrixVisualizer on: resultMatrix withView: composer view.
 	composer group: #result.
-	self add: nowProcessingElementIndex.
-	self group: #nowProcessing.
+	"self add: nowProcessingElementIndex.
+	self group: #nowProcessing."
 	self add: leftMarkerElement.
 	self group: #leftMarker.
 	self add: rightMarkerElement.

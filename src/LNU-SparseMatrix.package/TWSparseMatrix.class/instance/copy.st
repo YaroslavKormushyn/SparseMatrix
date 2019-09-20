@@ -8,7 +8,7 @@ copy
 			rowMarker := result rows at: rowHead row.
 			marker := rowHead.
 			[ marker rightNeighbour column ~= 0 ]
-				whileTrue: [ rowMarker rightNeighbour: (TWMatrixNode row: marker rightNeighbour row column: marker rightNeighbour column value: marker rightNeighbour value).
+				whileTrue: [ rowMarker rightNeighbour: (TWSparseMatrixNode row: marker rightNeighbour row column: marker rightNeighbour column value: marker rightNeighbour value).
 					(colMarkers at: marker rightNeighbour column) belowNeighbour: rowMarker rightNeighbour.
 					colMarkers at: marker rightNeighbour column put: rowMarker rightNeighbour.
 					rowMarker := rowMarker rightNeighbour.

@@ -46,8 +46,10 @@ setMultiLinksForResultOn: matrixInstance inMethod: methodName
 				link: resultMatrixUpdateLinkLast
 				toSlotNamed: #last
 				option: #write.
-				metaLinks
-		addAll: { resultMatrixUpdateLinkFirst .resultMatrixUpdateLinkLast } ].
+			metaLinks
+				addAll:
+					{resultMatrixUpdateLinkFirst.
+					resultMatrixUpdateLinkLast} ].
 	resultMatrixLink selector: #value:.
 	resultMatrixLink arguments: #(value).
 	resultMatrixLink control: #after.
@@ -56,5 +58,4 @@ setMultiLinksForResultOn: matrixInstance inMethod: methodName
 		toTemporaryNamed: #result
 		inMethod: methodName
 		option: #write.
-		metaLinks
-		add:resultMatrixLink
+	metaLinks add: resultMatrixLink

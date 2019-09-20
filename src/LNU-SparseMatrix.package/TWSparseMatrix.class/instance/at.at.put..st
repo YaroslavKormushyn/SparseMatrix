@@ -17,7 +17,7 @@ at: rowNumber at: columnNumber put: aValue
 							colMarker belowNeighbour: colMarker belowNeighbour belowNeighbour ]
 						ifFalse: [ colMarker belowNeighbour value: aValue ] ] ]
 		ifFalse: [ aValue ~= 0
-				ifTrue: [ newNode := TWMatrixNode row: rowNumber column: columnNumber value: aValue.
+				ifTrue: [ newNode := TWSparseMatrixNode row: rowNumber column: columnNumber value: aValue.
 					newNode rightNeighbour: rowMarker rightNeighbour belowNeighbour: colMarker belowNeighbour.
 					rowMarker rightNeighbour: newNode.
 					colMarker belowNeighbour: newNode ] ].

@@ -14,12 +14,12 @@ addAnimated: aMatrix delay: delay
 	vis backgroundGroups: #(#left #result #right).
 	leftMarkerElement := (TWSparseMatrixVisualizer new
 		getElementShapeScaled: 5)
-		elementOn: (TWMatrixNode new value: 0 row: 0 column: 0).
+		elementOn: (TWSparseMatrixNode new value: 0 row: 0 column: 0).
 	vis add: leftMarkerElement.
 	vis group: #leftMarker.
 	rightMarkerElement := (TWSparseMatrixVisualizer new
 		getElementShapeScaled: 5)
-		elementOn: (TWMatrixNode new value: 0 row: 0 column: 0).
+		elementOn: (TWSparseMatrixNode new value: 0 row: 0 column: 0).
 	vis add: rightMarkerElement.
 	vis group: #rightMarker.
 	nowProcessingElementIndex := (RTLabel
@@ -141,7 +141,7 @@ addAnimated: aMatrix delay: delay
 				whileTrue: [ leftRowMarker column < rightRowMarker column
 						ifTrue: [ tail
 								rightNeighbour:
-									(TWMatrixNode
+									(TWSparseMatrixNode
 										row: rowIndex
 										column: leftRowMarker column
 										value: leftRowMarker value).
@@ -161,7 +161,7 @@ addAnimated: aMatrix delay: delay
 						ifFalse: [ leftRowMarker column > rightRowMarker column
 								ifTrue: [ tail
 										rightNeighbour:
-											(TWMatrixNode
+											(TWSparseMatrixNode
 												row: rowIndex
 												column: rightRowMarker column
 												value: rightRowMarker value).
@@ -183,7 +183,7 @@ addAnimated: aMatrix delay: delay
 									rightRowMarker value + leftRowMarker value = 0
 										ifFalse: [ tail
 												rightNeighbour:
-													(TWMatrixNode
+													(TWSparseMatrixNode
 														row: rowIndex
 														column: rightRowMarker column
 														value: rightRowMarker value + leftRowMarker value).
@@ -215,7 +215,7 @@ addAnimated: aMatrix delay: delay
 			[ leftRowMarker column ~= 0 ]
 				whileTrue: [ tail
 						rightNeighbour:
-							(TWMatrixNode
+							(TWSparseMatrixNode
 								row: rowIndex
 								column: leftRowMarker column
 								value: leftRowMarker value).
@@ -238,7 +238,7 @@ addAnimated: aMatrix delay: delay
 			[ rightRowMarker column ~= 0 ]
 				whileTrue: [ tail
 						rightNeighbour:
-							(TWMatrixNode
+							(TWSparseMatrixNode
 								row: rowIndex
 								column: rightRowMarker column
 								value: rightRowMarker value).

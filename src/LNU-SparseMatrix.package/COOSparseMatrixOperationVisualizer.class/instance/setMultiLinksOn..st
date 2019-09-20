@@ -16,7 +16,7 @@ setMultiLinksOn: matrixInstance
 						highlightModels:
 							{leftMatrixMarker.
 							rightMatrixMarker}.
-					delay wait ] ].
+					delay copy wait ] ].
 	sumLink selector: #value:.
 	sumLink arguments: #(value).
 	sumLink control: #after.
@@ -52,7 +52,7 @@ setMultiLinksOn: matrixInstance
 			element isNotNil
 				ifTrue: [ self selectModel: element.
 					leftMarkerElement updateModelAndRedraw: element.
-					delay wait ] ].
+					delay copy wait ] ].
 	leftMarkerLinkAfter selector: #value:.
 	leftMarkerLinkAfter arguments: #(value).
 	leftMarkerLinkAfter control: #after.
@@ -86,7 +86,7 @@ setMultiLinksOn: matrixInstance
 			element isNotNil
 				ifTrue: [ self selectModel: element.
 					rightMarkerElement updateModelAndRedraw: element.
-					delay wait ] ].
+					delay copy wait ] ].
 	rightMarkerLinkAfter selector: #value:.
 	rightMarkerLinkAfter arguments: #(value).
 	rightMarkerLinkAfter control: #after.
@@ -100,4 +100,5 @@ setMultiLinksOn: matrixInstance
 			{leftMarkerLinkBefore.
 			leftMarkerLinkAfter.
 			rightMarkerLinkBefore.
-			rightMarkerLinkAfter.sumLink}
+			rightMarkerLinkAfter.
+			sumLink}

@@ -12,6 +12,6 @@
 		"rightNeighbour",
 		"belowNeighbour"
 	],
-	"name" : "TWMatrixNode",
+	"name" : "TWSparseMatrixNode",
 	"type" : "normal"
 }
