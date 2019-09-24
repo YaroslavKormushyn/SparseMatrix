@@ -6,7 +6,7 @@ withAll: aCollection
 		rawArr := ((1 to: (aCollection at: rowIndex) size)
 			collect: [ :columnIndex | 
 				(((aCollection at: rowIndex) at: columnIndex) = 0 or: [ ((aCollection at: rowIndex) at: columnIndex) isNil ])
-					ifFalse: [ TWMatrixNode row: rowIndex column: columnIndex value: ((aCollection at: rowIndex) at: columnIndex) ] ]) reject: [ :el | el isNil ].
+					ifFalse: [ TWSparseMatrixNode row: rowIndex column: columnIndex value: ((aCollection at: rowIndex) at: columnIndex) ] ]) reject: [ :el | el isNil ].
 		rawArr isEmpty
 			ifTrue: [ (self rows at: rowIndex) rightNeighbour: (self rows at: rowIndex) ]
 			ifFalse: [ 1 to: rawArr size - 1 do: [ :colIndex | 

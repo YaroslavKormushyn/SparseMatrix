@@ -24,14 +24,14 @@ arithmetic
 			tail := result rows at: rowIndex.
 			[ leftRowMarker column ~= 0 and: [ rightRowMarker column ~= 0 ] ]
 				whileTrue: [ leftRowMarker column < rightRowMarker column
-						ifTrue: [ tail rightNeighbour: (TWMatrixNode row: rowIndex column: leftRowMarker column value: leftRowMarker value).
+						ifTrue: [ tail rightNeighbour: (TWSparseMatrixNode row: rowIndex column: leftRowMarker column value: leftRowMarker value).
 							leftRowMarker := leftRowMarker rightNeighbour ]
 						ifFalse: [ leftRowMarker column > rightRowMarker column
 								ifTrue: [ "if there's an element on the same index"
-									tail rightNeighbour: (TWMatrixNode row: rowIndex column: rightRowMarker column value: rightRowMarker value).
+									tail rightNeighbour: (TWSparseMatrixNode row: rowIndex column: rightRowMarker column value: rightRowMarker value).
 									rightRowMarker := rightRowMarker rightNeighbour ]
 								ifFalse: [ (rightRowMarker value + leftRowMarker value) = 0
-										ifFalse: [ tail rightNeighbour: (TWMatrixNode row: rowIndex column: rightRowMarker column value: rightRowMarker value + leftRowMarker value) ].
+										ifFalse: [ tail rightNeighbour: (TWSparseMatrixNode row: rowIndex column: rightRowMarker column value: rightRowMarker value + leftRowMarker value) ].
 									rightRowMarker := rightRowMarker rightNeighbour.
 									leftRowMarker := leftRowMarker rightNeighbour ] ].
 					tail rightNeighbour isNotNil
@@ -39,13 +39,13 @@ arithmetic
 
 			"gather leftovers from left matrix"
 			[ leftRowMarker column ~= 0 ]
-				whileTrue: [ tail rightNeighbour: (TWMatrixNode row: rowIndex column: leftRowMarker column value: leftRowMarker value).
+				whileTrue: [ tail rightNeighbour: (TWSparseMatrixNode row: rowIndex column: leftRowMarker column value: leftRowMarker value).
 					leftRowMarker := leftRowMarker rightNeighbour.
 					tail := tail rightNeighbour ].
 
 			"gather leftovers from right matrix"
 			[ rightRowMarker column ~= 0 ]
-				whileTrue: [ tail rightNeighbour: (TWMatrixNode row: rowIndex column: rightRowMarker column value: rightRowMarker value).
+				whileTrue: [ tail rightNeighbour: (TWSparseMatrixNode row: rowIndex column: rightRowMarker column value: rightRowMarker value).
 					rightRowMarker := rightRowMarker rightNeighbour.
 					tail := tail rightNeighbour ].
 

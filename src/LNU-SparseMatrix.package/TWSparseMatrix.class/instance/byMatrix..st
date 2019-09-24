@@ -26,7 +26,7 @@ byMatrix: aMatrix
 											rightMarker := rightMarker belowNeighbour.
 											leftMarker := leftMarker rightNeighbour. ] ] ].
 					sum ~= 0
-						ifTrue: [ newNode := TWMatrixNode new value: sum row: rowIndex column: columnIndex.
+						ifTrue: [ newNode := TWSparseMatrixNode new value: sum row: rowIndex column: columnIndex.
 							(lastInRowMarkers at: rowIndex) rightNeighbour: newNode.
 							(lastInColumnMarkers at: columnIndex) belowNeighbour: newNode.
 							lastInRowMarkers at: rowIndex put: newNode.

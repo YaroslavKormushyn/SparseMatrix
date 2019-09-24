@@ -12,7 +12,7 @@ transposeAnimatedDelay: delay
 	vis composer group: #result.
 	sourceMarker := (TWSparseMatrixVisualizer new
 		getElementShapeScaled: 5)
-		elementOn: (TWMatrixNode new value: 0 row: 0 column: 0).
+		elementOn: (TWSparseMatrixNode new value: 0 row: 0 column: 0).
 	vis add: sourceMarker.
 	vis group: #sourceMarker.
 	vis composer move: #sourceMarker below: #source.
@@ -25,11 +25,17 @@ transposeAnimatedDelay: delay
 		withIndexDo: [ :each :rowIndex | 
 			copy := self columns at: rowIndex.
 			rowMarker := each.
+			sourceMarker updateModelAndRedraw: rowMarker.
 			[ copy belowNeighbour row ~= 0 ]
 				whileTrue: [ copy := copy belowNeighbour.
 					vis selectModel: copy.
+			sourceMarker updateModelAndRedraw: copy.
 					rowMarker
-						rightNeighbour: (TWMatrixNode new value: copy value row: copy column column: copy row).
+						rightNeighbour:
+							(TWSparseMatrixNode new
+								value: copy value
+								row: copy column
+								column: copy row).
 					(columnMarkers at: copy row)
 						belowNeighbour: rowMarker rightNeighbour.
 					vis composer replaceElementsInGroup: #result with: result.
@@ -48,8 +54,7 @@ transposeAnimatedDelay: delay
 		withIndexDo:
 			[ :each :columnIndex | (columnMarkers at: columnIndex) belowNeighbour: each ].
 	vis composer removeGroup: #sourceMarker.
-	vis
-		namedGroups: (vis namedGroups copyWithout: #sourceMarker).
+	vis namedGroups: (vis namedGroups copyWithout: #sourceMarker).
 	vis redrawNamesAndBackgrounds.
 	vis composer replaceElementsInGroup: #result with: result.
 	vis composer move: #result onTheRightOf: #source.

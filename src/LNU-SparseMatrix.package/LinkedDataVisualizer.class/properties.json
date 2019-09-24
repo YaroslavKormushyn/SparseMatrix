@@ -1,24 +1,27 @@
 {
-	"commentStamp" : "",
+	"commentStamp" : "YaroslavKormushyn 9/23/2019 12:03",
 	"super" : "Object",
 	"category" : "LNU-SparseMatrix-Visual",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"selectColor",
-		"leftMatrix",
-		"rightMatrix",
-		"resultMatrix",
+		"gap",
+		"elementSize",
+		"colors",
+		"shapes",
+		"operation",
+		"operands",
 		"process",
+		"operationBlock",
 		"composer",
 		"namedGroups",
 		"backgroundGroups",
-		"elementSize",
 		"metaLinks",
 		"delay",
-		"semaphore"
+		"semaphore",
+		"linkMessages"
 	],
-	"name" : "MatrixOperationVisualizer",
+	"name" : "LinkedDataVisualizer",
 	"type" : "normal"
 }

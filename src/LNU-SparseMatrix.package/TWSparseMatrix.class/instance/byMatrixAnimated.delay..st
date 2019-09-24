@@ -19,12 +19,12 @@ byMatrixAnimated: aMatrix delay: delay
 	vis backgroundGroups: #(#left #result #right).
 	leftMarkerElement := (TWSparseMatrixVisualizer new
 		getElementShapeScaled: 5)
-		elementOn: (TWMatrixNode new value: 0 row: 0 column: 0).
+		elementOn: (TWSparseMatrixNode new value: 0 row: 0 column: 0).
 	vis add: leftMarkerElement.
 	vis group: #leftMarker.
 	rightMarkerElement := (TWSparseMatrixVisualizer new
 		getElementShapeScaled: 5)
-		elementOn: (TWMatrixNode new value: 0 row: 0 column: 0).
+		elementOn: (TWSparseMatrixNode new value: 0 row: 0 column: 0).
 	vis add: rightMarkerElement.
 	vis group: #rightMarker.
 	nowProcessingElementIndex := (RTLabel
@@ -184,7 +184,7 @@ byMatrixAnimated: aMatrix delay: delay
 					leftMarker column ~= 0
 						ifTrue: [ vis composer deselectModel: leftMarker ].
 					sum ~= 0
-						ifTrue: [ newNode := TWMatrixNode new
+						ifTrue: [ newNode := TWSparseMatrixNode new
 								value: sum
 								row: rowIndex
 								column: columnIndex.
