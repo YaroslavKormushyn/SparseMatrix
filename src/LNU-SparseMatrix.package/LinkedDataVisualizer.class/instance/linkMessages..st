@@ -1,7 +1,7 @@
 accessing
-linkMessages: messages
-	messages isCollection
-		ifFalse: [ Error signal: 'You should add messages to a collection.' ].
-	messages isEmpty
+linkMessages: messageConfigs
+	messageConfigs isCollection
+		ifFalse: [ Error signal: 'You should add message link configurations to a collection.' ].
+	messageConfigs isEmpty
 		ifTrue: [ Error signal: 'No messages in collection.' ].
-	linkMessages := messages collect: [ :msg | msg asSymbol ]
+	linkMessages := messageConfigs collect: [ :msg | msg asSymbol ]
