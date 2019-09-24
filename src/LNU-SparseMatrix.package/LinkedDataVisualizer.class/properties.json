@@ -20,7 +20,7 @@
 		"metaLinks",
 		"delay",
 		"semaphore",
-		"linkMessages"
+		"linkMessageConfigs"
 	],
 	"name" : "LinkedDataVisualizer",
 	"type" : "normal"
