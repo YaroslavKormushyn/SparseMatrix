@@ -43,7 +43,7 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 		getElementShapeScaled: 5) elementOn: rightMatrixMarker.
 	visualizer add: rightMarkerElement.
 	visualizer group: #rightMarker.
-	visualizer setPositionsForCOOMultiplication.
+	visualizer setPositionsForMultiplication.
 	visualizer
 		namedGroups: #(#left #result #right #leftMarker #rightMarker).
 	visualizer backgroundGroups: #(#left #result #right).

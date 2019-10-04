@@ -38,7 +38,7 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay visualizer: viz
 		getElementShapeScaled: 5) elementOn: rightMatrixMarker.
 	visualizer add: rightMarkerElement.
 	visualizer group: #rightMarker.
-	visualizer setPositionsForCOOMultiplication.
+	visualizer setPositionsForMultiplication.
 	visualizer
 		namedGroups: #(#left #result #right #leftMarker #rightMarker).
 	visualizer backgroundGroups: #(#left #result #right).
@@ -130,17 +130,14 @@ byMatrixAnimated: aCOOSparseMatrix withDelay: delay visualizer: viz
 											rightMatrixMarker row ~= currentRightColumn
 												ifTrue: [ next value ].
 											leftMatrixMarker column = rightMatrixMarker column
-												ifTrue: [ 
-													visualizer
-														highlightModel: leftMatrixMarker
-														inGroup: #left.
+												ifTrue: [ visualizer highlightModel: leftMatrixMarker inGroup: #left.
 													visualizer
 														highlightModel: rightMatrixMarker
 														inGroup: #right.
 													(Delay forSeconds: delay) wait.
 													sum := sum
 														+ (leftMatrixMarker value * rightMatrixMarker value).
-														leftMatrixMarker := leftMatrixMarker rightNeighbour.
+													leftMatrixMarker := leftMatrixMarker rightNeighbour.
 													rightMatrixMarker := rightMatrixMarker rightNeighbour.
 													leftMarkerElement updateModelAndRedraw: leftMatrixMarker.
 													rightMatrixMarker isNotNil
