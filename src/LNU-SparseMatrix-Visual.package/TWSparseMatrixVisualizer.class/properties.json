@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "MatrixVisualizer",
-	"category" : "LNU-SparseMatrix-Visual",
+	"category" : "LNU-SparseMatrix-Visual-Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

@@ -1,4 +1,4 @@
-*LNU-SparseMatrix
+*LNU-SparseMatrix-Visual
 linksCollect: aBlock
 	| aLink newCollection|
 	aLink := firstLink.
