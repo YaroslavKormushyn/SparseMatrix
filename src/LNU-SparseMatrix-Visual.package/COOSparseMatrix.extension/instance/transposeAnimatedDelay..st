@@ -1,4 +1,4 @@
-transformation
+*LNU-SparseMatrix-Visual
 transposeAnimatedDelay: delay
 	| result tempList marker vis operationProcess sourceMarker rightMarkerElement nowProcessingElementIndex newElementValue captionLabel newRowGroup |
 	result := self class rows: columnNumber columns: rowNumber.

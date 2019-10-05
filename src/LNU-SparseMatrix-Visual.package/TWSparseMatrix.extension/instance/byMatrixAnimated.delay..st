@@ -1,4 +1,4 @@
-private
+*LNU-SparseMatrix-Visual
 byMatrixAnimated: aMatrix delay: delay
 	| result rowNumbers columnNumbers lastInRowMarkers lastInColumnMarkers leftMarker rightMarker sum newNode vis operationProcess leftMarkerElement rightMarkerElement nowProcessingElementIndex newElementValue leftCopy |
 	self columnsNumber ~= aMatrix rowsNumber

@@ -1,4 +1,4 @@
-as yet unclassified
+*LNU-SparseMatrix-Visual
 byMatrixAnimated: aCOOSparseMatrix withDelay: delay
 	| result transposed newNode sum operationProcess operationBlock visualizer currentLeftRow currentRightColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker |
 	columnNumber = aCOOSparseMatrix rowNumber

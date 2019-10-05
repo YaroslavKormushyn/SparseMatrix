@@ -1,4 +1,4 @@
-arithmetic
+*LNU-SparseMatrix-Visual
 addAnimated: aLILSparseMatrix delay: delay
 	| result rightMatrix arr list operationProcess vis leftMatrixRow rightMatrixRow |
 	rowNumber = aLILSparseMatrix rowNumber

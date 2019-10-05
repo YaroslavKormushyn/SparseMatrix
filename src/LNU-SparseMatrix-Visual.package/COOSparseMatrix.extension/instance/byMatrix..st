@@ -1,4 +1,4 @@
-private
+*LNU-SparseMatrix-Visual
 byMatrix: aCOOSparseMatrix
 	| result currentLeftRow currentRightColumn priorityColumn leftMatrixMarker leftSavedMatrixMarker rightMatrixMarker transposed newNode sum |
 	columnNumber = aCOOSparseMatrix rowNumber

@@ -1,4 +1,4 @@
-private
+*LNU-SparseMatrix-Visual
 byMatrixAnimated: aLILSparseMatrix delay: delay
 	| result other index sum list arr cachedLeftRow cachedRightColumn vis operationProcess leftMarkerElement rightMarkerElement nowProcessingElementIndex newElementValue captionLabel newRowGroup |
 	columnNumber = aLILSparseMatrix rowNumber

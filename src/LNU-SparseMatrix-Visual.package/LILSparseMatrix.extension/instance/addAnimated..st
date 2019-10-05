@@ -1,4 +1,4 @@
-arithmetic
+*LNU-SparseMatrix-Visual
 addAnimated: aLILSparseMatrix
 	| result arr list operationProcess vis composer|
 	rowNumber = aLILSparseMatrix rowNumber

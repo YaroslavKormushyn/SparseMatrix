@@ -1,15 +1,13 @@
 {
 	"commentStamp" : "YaroslavKormushyn 4/18/2018 11:03",
-	"super" : "Object",
+	"super" : "SparseMatrix",
 	"category" : "LNU-SparseMatrix-Data",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
 		"first",
-		"last",
-		"rowNumber",
-		"columnNumber"
+		"last"
 	],
 	"name" : "COOSparseMatrix",
 	"type" : "normal"

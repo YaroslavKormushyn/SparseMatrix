@@ -1,4 +1,4 @@
-accessing
+as yet unclassified
 at: rowIndex at: columnIndex
 	| index |
 	(self validAt: rowIndex at: columnIndex )

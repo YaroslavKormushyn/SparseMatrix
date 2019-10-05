@@ -1,12 +1,12 @@
-arithmetic
+*LNU-SparseMatrix-Visual
 addAnimated: aMatrix delay: delay
 	"Addition of matrices of the same type"
 
 	| result rowNumbers colNumbers colLast leftRowMarker rightRowMarker tail vis operationProcess leftMarkerElement rightMarkerElement nowProcessingElementIndex |
-	(rowsNumber = aMatrix rowsNumber
-		and: [ columnsNumber = aMatrix columnsNumber ])
+	(rowNumber = aMatrix rowNumber
+		and: [ columnNumber = aMatrix columnNumber ])
 		ifFalse: [ Error signal: 'Matrices must be of same size.' ].
-	result := self class rows: rowsNumber columns: columnsNumber.
+	result := self class rows: rowNumber columns: columnNumber.
 	vis := MatrixOperationVisualizer new.
 	vis delay: delay.
 	vis getComposedViewOf: self with: aMatrix result: result.
@@ -130,12 +130,10 @@ addAnimated: aMatrix delay: delay
 			rightRowMarker := (aMatrix rows at: rowIndex) rightNeighbour.
 			leftMarkerElement updateModelAndRedraw: leftRowMarker.
 			rightMarkerElement updateModelAndRedraw: rightRowMarker.
-			(leftRowMarker column ~= 0) ifTrue: [ vis composer
-				selectModel:
-					leftRowMarker ].
-(rightRowMarker column ~= 0) ifTrue: [ vis composer
-				selectModel:
-					rightRowMarker ].
+			leftRowMarker column ~= 0
+				ifTrue: [ vis composer selectModel: leftRowMarker ].
+			rightRowMarker column ~= 0
+				ifTrue: [ vis composer selectModel: rightRowMarker ].
 			tail := result rows at: rowIndex.
 			[ leftRowMarker column ~= 0 and: [ rightRowMarker column ~= 0 ] ]
 				whileTrue: [ leftRowMarker column < rightRowMarker column
@@ -157,7 +155,8 @@ addAnimated: aMatrix delay: delay
 							vis composer deselectModel: leftRowMarker.
 							leftRowMarker := leftRowMarker rightNeighbour.
 							leftMarkerElement updateModelAndRedraw: leftRowMarker.
-							(leftRowMarker column ~= 0) ifTrue: [vis composer selectModel: leftRowMarker] ]
+							leftRowMarker column ~= 0
+								ifTrue: [ vis composer selectModel: leftRowMarker ] ]
 						ifFalse: [ leftRowMarker column > rightRowMarker column
 								ifTrue: [ tail
 										rightNeighbour:
@@ -176,9 +175,9 @@ addAnimated: aMatrix delay: delay
 									vis delay wait.
 									vis composer deselectModel: rightRowMarker.
 									rightRowMarker := rightRowMarker rightNeighbour.
-									
-			rightMarkerElement updateModelAndRedraw: rightRowMarker.
-									(rightRowMarker column ~= 0) ifTrue: [vis composer selectModel: rightRowMarker] ]
+									rightMarkerElement updateModelAndRedraw: rightRowMarker.
+									rightRowMarker column ~= 0
+										ifTrue: [ vis composer selectModel: rightRowMarker ] ]
 								ifFalse: [ "if there's an element on the same index"
 									rightRowMarker value + leftRowMarker value = 0
 										ifFalse: [ tail
@@ -192,7 +191,6 @@ addAnimated: aMatrix delay: delay
 													{rowIndex.
 													leftRowMarker column}.
 											nowProcessingElementIndex update.
-											
 											vis composer highlightModel: rightRowMarker.
 											vis composer highlightModel: leftRowMarker.
 											vis updateResultWith: result.
@@ -202,11 +200,12 @@ addAnimated: aMatrix delay: delay
 									vis composer deselectModel: leftRowMarker.
 									rightRowMarker := rightRowMarker rightNeighbour.
 									leftRowMarker := leftRowMarker rightNeighbour.
-									(rightRowMarker column ~= 0) ifTrue: [vis composer selectModel: rightRowMarker].
-									(leftRowMarker column ~= 0) ifTrue: [vis composer selectModel: leftRowMarker].
-									
-			leftMarkerElement updateModelAndRedraw: leftRowMarker.
-			rightMarkerElement updateModelAndRedraw: rightRowMarker.
+									rightRowMarker column ~= 0
+										ifTrue: [ vis composer selectModel: rightRowMarker ].
+									leftRowMarker column ~= 0
+										ifTrue: [ vis composer selectModel: leftRowMarker ].
+									leftMarkerElement updateModelAndRedraw: leftRowMarker.
+									rightMarkerElement updateModelAndRedraw: rightRowMarker.
 									vis delay wait ] ].
 					tail rightNeighbour isNotNil
 						ifTrue: [ tail := tail rightNeighbour ] ].
@@ -229,8 +228,9 @@ addAnimated: aMatrix delay: delay
 					vis composer view canvas focusOnCenterScaled.
 					vis delay wait.
 					vis composer deselectModel: leftRowMarker.
-					(leftRowMarker column ~= 0) ifTrue: [leftRowMarker := leftRowMarker rightNeighbour].
-			leftMarkerElement updateModelAndRedraw: leftRowMarker.
+					leftRowMarker column ~= 0
+						ifTrue: [ leftRowMarker := leftRowMarker rightNeighbour ].
+					leftMarkerElement updateModelAndRedraw: leftRowMarker.
 					vis composer selectModel: leftRowMarker.
 					tail := tail rightNeighbour ].
 
@@ -253,8 +253,9 @@ addAnimated: aMatrix delay: delay
 					vis delay wait.
 					vis composer deselectModel: rightRowMarker.
 					rightRowMarker := rightRowMarker rightNeighbour.
-			rightMarkerElement updateModelAndRedraw: rightRowMarker.
-					(rightRowMarker column ~= 0) ifTrue: [vis composer deselectModel: rightRowMarker].
+					rightMarkerElement updateModelAndRedraw: rightRowMarker.
+					rightRowMarker column ~= 0
+						ifTrue: [ vis composer deselectModel: rightRowMarker ].
 					tail := tail rightNeighbour ].
 
 			"close loop the row"

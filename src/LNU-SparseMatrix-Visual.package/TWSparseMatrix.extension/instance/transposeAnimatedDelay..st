@@ -1,7 +1,7 @@
-transformation
+*LNU-SparseMatrix-Visual
 transposeAnimatedDelay: delay
 	| copy rowMarker result columnMarkers vis operationProcess sourceMarker |
-	result := self class rows: columnsNumber columns: rowsNumber.
+	result := self class rows: columnNumber columns: rowNumber.
 	self isEmpty
 		ifTrue: [ ^ result ].
 	vis := MatrixOperationVisualizer new.
@@ -29,7 +29,7 @@ transposeAnimatedDelay: delay
 			[ copy belowNeighbour row ~= 0 ]
 				whileTrue: [ copy := copy belowNeighbour.
 					vis selectModel: copy.
-			sourceMarker updateModelAndRedraw: copy.
+					sourceMarker updateModelAndRedraw: copy.
 					rowMarker
 						rightNeighbour:
 							(TWSparseMatrixNode new
