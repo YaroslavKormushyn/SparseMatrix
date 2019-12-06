@@ -1,14 +1,14 @@
 *LNU-SparseMatrix-Visual
 byMatrixAnimated: aMatrix delay: delay
 	| result rowNumbers columnNumbers lastInRowMarkers lastInColumnMarkers leftMarker rightMarker sum newNode vis operationProcess leftMarkerElement rightMarkerElement nowProcessingElementIndex newElementValue leftCopy |
-	self columnsNumber ~= aMatrix rowsNumber
+	self columnNumber ~= aMatrix rowNumber
 		ifTrue: [ Error
 				signal:
-					'Size mismatch. Left: ' , self columnsNumber , ' Right: '
-						, aMatrix rowsNumber ].
+					'Size mismatch. Left: ' , self columnNumber , ' Right: '
+						, aMatrix rowNumber ].
 	result := self class new
-		rows: self rowsNumber
-		columns: aMatrix columnsNumber.
+		rows: self rowNumber
+		columns: aMatrix columnNumber.
 	(self isEmpty or: aMatrix isEmpty)
 		ifTrue: [ ^ result ].
 	leftCopy := aMatrix copy.
@@ -55,7 +55,7 @@ byMatrixAnimated: aMatrix delay: delay
 		thenCollect: [ :colHead | colHead row ].
 
 	"gray out rows which are empty"
-	((1 to: self rowsNumber) copyWithoutAll: rowNumbers)
+	((1 to: self rowNumber) copyWithoutAll: rowNumbers)
 		do: [ :rowIndex | 
 			| backgroundBoxLeft backgroundBoxResult outterGap |
 			outterGap := 5 @ 5.
@@ -91,7 +91,7 @@ byMatrixAnimated: aMatrix delay: delay
 				ifTrue: [ vis composer groupToExisting: #shade ]
 				ifFalse: [ vis group: #shade ] ].
 	"gray out empty columns"
-	((1 to: self columnsNumber) copyWithoutAll: columnNumbers)
+	((1 to: self columnNumber) copyWithoutAll: columnNumbers)
 		do: [ :rowIndex | 
 			| backgroundBoxResult backgroundBoxRight outterGap |
 			outterGap := 5 @ 5.
