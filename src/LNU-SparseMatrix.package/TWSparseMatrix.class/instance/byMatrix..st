@@ -16,9 +16,9 @@ byMatrix: aMatrix
 	rowNumbers := self rows
 		reject: [ :rowHead | rowHead rightNeighbour = rowHead ]
 		thenCollect: [ :rowHead | rowHead row ].
-	columnNumbers := aMatrix rows
+	columnNumbers := aMatrix columns
 		reject: [ :colHead | colHead belowNeighbour = colHead ]
-		thenCollect: [ :colHead | colHead row ].
+		thenCollect: [ :colHead | colHead column ].
 	rowNumbers
 		do: [ :rowIndex | 
 			columnNumbers
